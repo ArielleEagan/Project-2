@@ -49,7 +49,6 @@ us_df = salary_df[salary_df.country=='US'].copy()
 #isolating us data to data scientist titles
 us_df = us_df[us_df.title=='Data Scientist'].copy()
 
-#apple dataframe
 #creating us/datascience/IL at apple dataframe
 def apple_clean(us_df):
     apple_df = us_df[us_df.company=='Apple'].copy()
@@ -68,7 +67,7 @@ def apple_clean(us_df):
     apple_df = apple_df.drop(index=apple_df[apple_df['level'] == '3'].index)
     apple_df = apple_df.drop(index=apple_df[apple_df['level'] == '4'].index)
 
-    #placing each level in our categories based on similiar: basesalary/yearsofexperience/yearsatcompany/stockgrantvalue/bonus
+    #placing each level in our categories based on similiar: totalyearlycompensation/yearsofexperience/yearsatcompany
     apple_df.loc[apple_df.level == "ICT3", "Category"] = "Entry"
     apple_df.loc[apple_df.level == "ICT4", "Category"] = "Mid"
     apple_df.loc[apple_df.level == "ICT5", "Category"] = "Senior"
@@ -92,7 +91,7 @@ def amazon_clean(us_df):
     amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'L1'].index)
     amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'L3'].index)
 
-    #placing each level in our categories based on similiar: basesalary/yearsofexperience/yearsatcompany/stockgrantvalue/bonus
+    #placing each level in our categories based on similiar: totalyearlycompensation/yearsofexperience/yearsatcompany
     amazon_df.loc[amazon_df.level == "L4", "Category"] = "Entry"
     amazon_df.loc[amazon_df.level == "L5", "Category"] = "Mid"
     amazon_df.loc[amazon_df.level == "L6", "Category"] = "Senior"
@@ -100,7 +99,7 @@ def amazon_clean(us_df):
 
 #facebook
 def fb_clean(us_df):
-    #exploring us/datascience/IL at amazon
+    #exploring us/datascience/IL at facebook
     fb_df = us_df[us_df.company=='Facebook'].copy()
 
     #correcting level variance with 95% confidence
@@ -116,17 +115,16 @@ def fb_clean(us_df):
     fb_df = fb_df.drop(index=fb_df[fb_df['level'] == 'M1'].index)
     fb_df = fb_df.drop(index=fb_df[fb_df['level'] == 'M2'].index)    
 
-    #placing each level in our categories based on similiar: basesalary/yearsofexperience/yearsatcompany/stockgrantvalue/bonus
+    #placing each level in our categories based on similiar: totalyearlycompensation/yearsofexperience/yearsatcompany
     fb_df.loc[fb_df.level == "IC3", "Category"] = "Entry"
     fb_df.loc[fb_df.level == "IC4", "Category"] = "Entry"
     fb_df.loc[fb_df.level == "IC5", "Category"] = "Mid"
     fb_df.loc[fb_df.level == "IC6", "Category"] = "Senior"
-
     return fb_df
 
 #google
 def google_clean(us_df):
-    #exploring us/datascience/IL at amazon
+    #exploring us/datascience/IL at google
     google_df = us_df[us_df.company=='Google'].copy()
 
     #correcting level variance with 95% confidence
@@ -141,11 +139,10 @@ def google_clean(us_df):
     google_df = google_df.drop(index=google_df[google_df['level'] == 'Product Manager 3'].index)
     google_df = google_df.drop(index=google_df[google_df['level'] == 'T6'].index)
 
-    #placing each level in our categories based on similiar: basesalary/yearsofexperience/yearsatcompany/stockgrantvalue/bonus
+    #placing each level in our categories based on similiar: totalyearlycompensation/yearsofexperience/yearsatcompany
     google_df.loc[google_df.level == "L3", "Category"] = "Entry"
     google_df.loc[google_df.level == "L4", "Category"] = "Mid"
     google_df.loc[google_df.level == "L5", "Category"] = "Senior"
-
     return google_df
 
 #microsoft
@@ -164,7 +161,7 @@ def micro_clean(us_df):
     micro_df = micro_df.drop(index=micro_df[micro_df['level'] == 'Principal PM'].index)
     micro_df = micro_df.drop(index=micro_df[micro_df['level'] == 'SDE II'].index)
 
-    #placing each level in our categories based on similiar: basesalary/yearsofexperience/yearsatcompany/stockgrantvalue/bonus
+    #placing each level in our categories based on similiar: totalyearlycompensation/yearsofexperience/yearsatcompany
     micro_df.loc[micro_df.level == "59", "Category"] = "Entry"
     micro_df.loc[micro_df.level == "60", "Category"] = "Entry"
     micro_df.loc[micro_df.level == "61", "Category"] = "Entry"
@@ -172,17 +169,17 @@ def micro_clean(us_df):
     micro_df.loc[micro_df.level == "63", "Category"] = "Mid"
     micro_df.loc[micro_df.level == "64", "Category"] = "Senior"
     micro_df.loc[micro_df.level == "65", "Category"] = "Senior"
-
     return micro_df
 
-
+#running functions on dataset
 apple_df = apple_clean(us_df)
 amazon_df = amazon_clean(us_df)
 fb_df = fb_clean(us_df)
 google_df = google_clean(us_df)
 micro_df = micro_clean(us_df)
 
-cleaned_data = pd.concat([apple_df, amazon_df])
+#merging dataframes into on collection
+cleaned_data = pd.concat([apple_df, amazon_df fb_df, google_df, micro_df ])
 
 #import dependency
 import pymongo
