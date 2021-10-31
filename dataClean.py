@@ -179,7 +179,7 @@ google_df = google_clean(us_df)
 micro_df = micro_clean(us_df)
 
 #merging dataframes into on collection
-cleaned_data = pd.concat([apple_df, amazon_df fb_df, google_df, micro_df ])
+cleaned_data = pd.concat([apple_df, amazon_df, fb_df, google_df, micro_df ])
 
 #import dependency
 import pymongo
