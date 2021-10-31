@@ -91,6 +91,13 @@ def amazon_clean(us_df):
     amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'L1'].index)
     amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'L3'].index)
 
+    #dropping values assign to SDE and L7 upper management level
+    amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'SDE III'].index)
+    amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'SDE II'].index)
+    amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'L7'].index)
+    amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'Senior'].index)
+    amazon_df = amazon_df.drop(index=amazon_df[amazon_df['level'] == 'Senior SDE'].index)
+
     #placing each level in our categories based on similiar: totalyearlycompensation/yearsofexperience/yearsatcompany
     amazon_df.loc[amazon_df.level == "L4", "Category"] = "Entry"
     amazon_df.loc[amazon_df.level == "L5", "Category"] = "Mid"
@@ -104,7 +111,7 @@ def fb_clean(us_df):
 
     #correcting level variance with 95% confidence
     corrections = {'6': 'IC6', 'E4': 'IC4', 'E5': 'IC6', 'L3': 'IC3', 'L4': 'IC4', 'L5': 'IC5',
-                    'L5 Product Growth Analyst': 'IC5', 'I4': 'IC4' }
+                    'L5 Product Growth Analyst': 'IC5', 'l4': 'IC4', 'L5 ': 'IC5' }
     fb_df.replace(corrections, inplace=True)
 
     #removing values outside of 95% confidence
@@ -113,7 +120,8 @@ def fb_clean(us_df):
     fb_df = fb_df.drop(index=fb_df[fb_df['level'] == 'E6'].index)
     fb_df = fb_df.drop(index=fb_df[fb_df['level'] == 'L6'].index)
     fb_df = fb_df.drop(index=fb_df[fb_df['level'] == 'M1'].index)
-    fb_df = fb_df.drop(index=fb_df[fb_df['level'] == 'M2'].index)    
+    fb_df = fb_df.drop(index=fb_df[fb_df['level'] == 'M2'].index)  
+    fb_df = fb_df.drop(index=fb_df[fb_df['level'] == 'IC7'].index)  
 
     #placing each level in our categories based on similiar: totalyearlycompensation/yearsofexperience/yearsatcompany
     fb_df.loc[fb_df.level == "IC3", "Category"] = "Entry"
