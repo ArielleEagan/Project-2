@@ -45,31 +45,37 @@ function map(data) {
         datasets: [{
             label: "Apple",
             data: entries.apple,
-            backgroundColor: "rgb(255, 99, 132)",
-            hoverBorderColor:"rgb(0,0,0)"
+            backgroundColor: "rgb(19,128,205)",
+            hoverBorderColor:"rgb(110,148,175)",
+            hoverBorderWidth: "4"
         },{
             label: "Amazon",
             data: entries.amazon,
-            backgroundColor: "rgb(99, 255, 132)",
-            hoverBorderColor:"rgb(0,0,0)"
+            backgroundColor: "rgb(205,19,168)",
+            hoverBorderColor:"rgb(110,148,175)",
+            hoverBorderWidth: "4"
         },{
             label: "Facebook",
             data: entries.facebook,
-            backgroundColor: "rgb(99, 132, 255)",
-            hoverBorderColor:"rgb(0,0,0)"
+            backgroundColor: "rgb(205,168,19)",
+            hoverBorderColor:"rgb(110,148,175)",
+            hoverBorderWidth: "4"
         },{
             label: "Google",
             data: entries.amazon,
-            backgroundColor: "rgb(175, 100, 25)",
-            hoverBorderColor:"rgb(0,0,0)"
+            backgroundColor: "rgb(205,44,19)",
+            hoverBorderColor:"rgb(110,148,175)",
+            hoverBorderWidth: "4"
         },{
             label: "Microsoft",
             data: entries.microsoft,
-            backgroundColor: "rgb(0, 100, 25)",
-            hoverBorderColor:"rgb(0,0,0)"
+            backgroundColor: "rgb(19,205,159)",
+            hoverBorderColor:"rgb(110,148,175)",
+            hoverBorderWidth: "4"
         },
         ]
     };
+
     const config = {
         type: 'bubble',
         data: mappedData,
