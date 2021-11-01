@@ -1,5 +1,5 @@
 function map(data) {
-    entries = { 'apple': [], 'amazon': [], 'facebook':[],'google':[],'microsoft':[] };
+    entries = { 'apple': [], 'amazon': [], 'facebook': [], 'google': [], 'microsoft': [] };
     var ap_i = 0;
     var am_i = 0;
     var fa_i = 0;
@@ -36,7 +36,7 @@ function map(data) {
         } else if (data[i]['company'] === "Microsoft") {
             entries.microsoft[mi_i] = company_metrics;
             mi_i++;
-        } else{
+        } else {
             console.log('no company name');
         }
     }
@@ -45,36 +45,54 @@ function map(data) {
         datasets: [{
             label: "Apple",
             data: entries.apple,
-            backgroundColor: "rgb(19,128,205)",
-            hoverBorderColor:"rgb(110,148,175)",
+            backgroundColor: "rgb(19,128,205,0.5)",
+            hoverBorderColor: "rgb(110,148,175)",
             hoverBorderWidth: "4"
-        },{
+        }, {
             label: "Amazon",
             data: entries.amazon,
-            backgroundColor: "rgb(205,19,168)",
-            hoverBorderColor:"rgb(110,148,175)",
+            backgroundColor: "rgb(205,19,168,0.5)",
+            hoverBorderColor: "rgb(110,148,175)",
             hoverBorderWidth: "4"
-        },{
+        }, {
             label: "Facebook",
             data: entries.facebook,
-            backgroundColor: "rgb(205,168,19)",
-            hoverBorderColor:"rgb(110,148,175)",
+            backgroundColor: "rgb(205,168,19,0.5)",
+            hoverBorderColor: "rgb(110,148,175)",
             hoverBorderWidth: "4"
-        },{
+        }, {
             label: "Google",
             data: entries.amazon,
-            backgroundColor: "rgb(205,44,19)",
-            hoverBorderColor:"rgb(110,148,175)",
+            backgroundColor: "rgb(205,44,19,0.5)",
+            hoverBorderColor: "rgb(110,148,175)",
             hoverBorderWidth: "4"
-        },{
+        }, {
             label: "Microsoft",
             data: entries.microsoft,
-            backgroundColor: "rgb(19,205,159)",
-            hoverBorderColor:"rgb(110,148,175)",
+            backgroundColor: "rgb(19,205,159,0.5)",
+            hoverBorderColor: "rgb(110,148,175)",
             hoverBorderWidth: "4"
         },
         ]
     };
+
+    const footer = (tooltipItems) => {
+        let level = 'Entry';
+        var salary;
+        var yoe;
+        tooltipItems.forEach(function(tooltipItem) {
+            if (tooltipItem.parsed.r === 15) {
+                level = "Senior"
+            } else if (tooltipItem.parsed.r === 9) {
+                level = "Mid"
+            } else {
+                level = "Entry"
+            }
+            salary = tooltipItem.parsed.y *1000;
+            yoe = tooltipItem.parsed.x;
+        })
+        return 'Job Level: ' + level + '\nSalary: $' + salary + '\nYears of Exp: ' + yoe
+    }
 
     const config = {
         type: 'bubble',
@@ -87,6 +105,25 @@ function map(data) {
                 title: {
                     display: true,
                     text: "Salaries by Experience and Company"
+                },
+                tooltip:{
+                    callbacks: {
+                        footer: footer
+                    }
+                }
+            },
+            scales: {
+                xAxis: {
+                    title: {
+                        display: true,
+                        text: "Years of Experience"
+                    }
+                },
+                yAxis: {
+                    title: {
+                        display: true,
+                        text: "Salary in $1,000"
+                    }
                 }
             }
         }
@@ -95,9 +132,8 @@ function map(data) {
     const myChart = new Chart(
         document.getElementById('chart'),
         config);
-
-
-
+    
+    
 }
 
 map(data);
