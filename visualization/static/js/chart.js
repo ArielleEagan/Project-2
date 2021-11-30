@@ -77,21 +77,21 @@ function map(data) {
     };
 
     const footer = (tooltipItems) => {
-        let level = 'Entry';
+        var level;
         var salary;
         var yoe;
         tooltipItems.forEach(function(tooltipItem) {
-            if (tooltipItem.parsed.r === 15) {
-                level = "Senior"
-            } else if (tooltipItem.parsed.r === 9) {
-                level = "Mid"
-            } else {
-                level = "Entry"
-            }
+            if (tooltipItem.parsed.r == 15) {
+                level = "Senior";
+            } else if (tooltipItem.parsed.r == 9) {
+                level = "Mid";
+            } else if (tooltipItem.parsed.r == 5) {
+                level = "Entry";
+            };
             salary = tooltipItem.parsed.y *1000;
             yoe = tooltipItem.parsed.x;
         })
-        return 'Job Level: ' + level + '\nSalary: $' + salary + '\nYears of Exp: ' + yoe
+        return 'Salary: $' + salary + '\nYears of Exp: ' + yoe
     }
 
     const config = {
